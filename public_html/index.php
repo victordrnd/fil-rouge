@@ -5,12 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="./css/boostrap.min.css" />
-    <title>Fil Rouge</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <script src="./js/boostrap.min.js"></script>
+    <?php
+
+    use Controllers\CityController;
+    require_once '../src/autoload.php';
+    Autoloader::register();
+    $router = new Router();
+
+    $router->get('/city/{id}', function($id){
+        echo CityController::show($id);
+    });
+
+    
+    $router->run();
+    ?>
 </body>
 
 </html>

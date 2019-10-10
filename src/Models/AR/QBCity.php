@@ -6,9 +6,7 @@ use Models\City;
 use Models\AR\QueryBuilder;
 use Models\AR\QBTrait;
 
-/**
- * City class DAO
- */
+
 abstract class QBCity extends QueryBuilder
 {
     use QBTrait;
