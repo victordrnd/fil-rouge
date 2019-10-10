@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'Europe</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/Europe" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/Europe" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'Asie</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/Asia" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/Asia" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'Afrique</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/Africa" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/Africa" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'Amérique du Nord</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/North%20America" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/North%20America" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'Amérique du sud</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/South%20America" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/South%20America" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'Océanie</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/Oceania" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/Oceania" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <div class="card-body">
                     <h5 class="card-title">L'antartique</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/continent/Antarctica" class="btn btn-primary">Go somewhere</a>
+                    <a href="/public_html/continent/Antarctica" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
