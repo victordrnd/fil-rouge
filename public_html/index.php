@@ -12,9 +12,14 @@
     <?php
 
     use Controllers\CityController;
+    use Controllers\PageController;
     require_once '../src/autoload.php';
     Autoloader::register();
     $router = new Router();
+
+    $router->get('/' , function(){
+        echo PageController::index();
+    });
 
     $router->get('/city/{id}', function($id){
         echo CityController::show($id);
