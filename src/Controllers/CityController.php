@@ -9,9 +9,14 @@ class CityController{
     public static function show($id){
         $city = City::find($id);
         //return $city;
-        return Renderer::render('city.php', compact("city"));
+        echo Renderer::render('city.php', compact("city"));
     }
 
-    
+    public static function showFromContinent($continent){
+        $cities = City::findFromContinent($continent);
+        echo Renderer::render('cities.php', compact("cities"));
+    }
+
+
 }
 ?>

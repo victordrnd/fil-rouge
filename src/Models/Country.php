@@ -38,24 +38,24 @@ class Country extends QBCountry
 
 
 
-   protected $Country_Id;
-   protected $Code;
-   protected $Name;
-   protected $Continent;
-   protected $Region;
-   protected $SurfaceArea;
-   protected $IndepYear;
-   protected $Population;
-   protected $LifeExpectancy;
-   protected $GNP;
-   protected $GNPOld;
-   protected $LocalName;
-   protected $GovernmentForm;
-   protected $HeadOfState;
-   protected $Capital;
-   protected $Code2;
-   protected $Image1;
-   protected $Image2;
+   public $Country_Id;
+   public $Code;
+   public $Name;
+   public $Continent;
+   public $Region;
+   public $SurfaceArea;
+   public $IndepYear;
+   public $Population;
+   public $LifeExpectancy;
+   public $GNP;
+   public $GNPOld;
+   public $LocalName;
+   public $GovernmentForm;
+   public $HeadOfState;
+   public $Capital;
+   public $Code2;
+   public $Image1;
+   public $Image2;
 
 
 }

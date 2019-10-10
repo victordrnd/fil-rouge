@@ -12,12 +12,24 @@
     <?php
 
     use Controllers\CityController;
+    use Controllers\CountryController;
     require_once '../src/autoload.php';
     Autoloader::register();
     $router = new Router();
 
+    $router->set404(function(){
+        echo "la page page n'a pas été trouvé";
+    });
     $router->get('/city/{id}', function($id){
-        echo CityController::show($id);
+        CityController::show($id);
+    });
+
+    $router->get('/country/{id}', function($id){
+        CountryController::show($id);
+    });
+
+    $router->get('/continent/{cont}', function($continent){
+        CountryController::findFromContinent($continent);
     });
 
     
