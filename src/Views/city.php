@@ -1,3 +1,6 @@
+<?php
+include_once ('header.php');
+?>
 <!-- <th scope="row"><?= $city->getCityId() ?></th>
 <td><?= $city->getName() ?></td>
 <td><?= $city->getCountryCode() ?></td>

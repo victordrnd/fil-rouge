@@ -1,3 +1,6 @@
+<?php
+include_once ('header.php');
+?>
 <div class="container my-5">
     <a href="../continent/<?=$country->Continent?>">Retour à la liste des pays du continent</a>
     <div class="card border-0 shadow-sm">

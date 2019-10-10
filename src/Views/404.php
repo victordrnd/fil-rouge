@@ -1,3 +1,6 @@
+<?php
+include_once ('header.php');
+?>
 <div class="container">
     <div class="card border-0 rounded">
       <h1 class="display-1 text-center">Erreur 404</h1>

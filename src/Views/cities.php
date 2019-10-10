@@ -1,4 +1,6 @@
-
+<?php
+include_once ('header.php');
+?>
 <div class="container my-5">
     <table class="table table-striped">
       <thead>
