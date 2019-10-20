@@ -4,20 +4,11 @@ namespace Models\AR;
 
 use Models\City;
 use Models\AR\QueryBuilder;
-use Models\AR\QBTrait;
 use Models\Singleton;
 use Models\Country;
 
-
 abstract class QBCity extends QueryBuilder
 {
-    use QBTrait;
-    private $cnx;
-
-    public function __construct($cnx)
-    {
-        $this->cnx = $cnx;
-    }
     /**
      *
      * @param Country $country
@@ -34,7 +25,12 @@ abstract class QBCity extends QueryBuilder
         return $cities;
     }
 
-    public static function findFromContinent(string $continent){
+    /**
+     *
+     * @param string $continent
+     * @return void
+     */
+    public static function findFromContinent(string $continent) : array{
         $SQL = "SELECT city.* from city, country WHERE country.Continent = :continent and city.CountryCode = country.code";
         $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $statement->bindParam('continent', $continent);
@@ -54,7 +50,7 @@ abstract class QBCity extends QueryBuilder
     public function findByName(string $name): array
     {
         $SQL = "SELECT * FROM city WHERE Name = :name";
-        $statement = $this->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $statement->bindParam('name', $name);
         $statement->execute();
         $statement->setFetchMode(\PDO::FETCH_CLASS, "\Models\City");
@@ -71,7 +67,7 @@ abstract class QBCity extends QueryBuilder
     public function findByNameStartingWith(string $pattern): array
     {
         $SQL = "SELECT * FROm city WHERE Name LIKE :name";
-        $statement = $this->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $pattern = "$pattern%";
         $statement->bindParam('name', $pattern);
         $statement->execute();
