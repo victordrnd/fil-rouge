@@ -4,18 +4,18 @@ namespace Models\AR;
 
 use Models\City;
 use Models\Singleton;
+use Models\AR\QBTrait;
 
 abstract class QueryBuilder
 {
+    use QBTrait;
 
-    private $cnx;
-
-    public function __construct($cnx)
-    {
-        $this->cnx = $cnx;
-    }
-
-
+    /**
+     * Find object with selected id
+     *
+     * @param int $id
+     * @return void
+     */
     public static function find($id)
     {
         $SQL = "SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
@@ -44,8 +44,8 @@ abstract class QueryBuilder
 
 
     /**
+     * Save the calling entity
      *
-     * @param City $city
      * @return void
      */
     public function save(): void
@@ -80,7 +80,8 @@ abstract class QueryBuilder
 
 
     /**
-     *
+     * Update the calling entity
+     * 
      * @param array $columns
      * @return void
      */
@@ -91,12 +92,20 @@ abstract class QueryBuilder
         }
         $primaryKey = static::$primaryKey;
         $SQL = "UPDATE " . static::$table . " SET ";
+        $last_key = end(array_keys($columns));
         foreach ($columns as $key => $value) {
-            $SQL .= "$key = ? ";
+            if ($key != $last_key) {
+                $SQL .= "$key = ?, ";
+            } else {
+                $SQL .= "$key = ? ";
+             }
             $this->{$key} = $value;
         }
         $SQL .= "WHERE " . static::$primaryKey . " = ?";
         $values = array_values($columns);
+        foreach ($values as &$value) {
+            $value = htmlspecialchars($value);
+        }
         $id = $this->getPrimaryKeyValue();
         $values[] = $id;
         $statement = $this->cnx->prepare($SQL);
@@ -132,9 +141,4 @@ abstract class QueryBuilder
         $res = $statement->fetchObject();
         return $res->count;
     }
-
-
-
-
-
 }
