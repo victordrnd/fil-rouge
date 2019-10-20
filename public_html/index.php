@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public_html/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public_html/css/global.css">
+    <script src="https://kit.fontawesome.com/2115a683fb.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -14,31 +16,62 @@
     use Controllers\CityController;
     use Controllers\CountryController;
     use Controllers\PageController;
+
     require_once '../src/autoload.php';
+
     Autoloader::register();
+
     $router = new Router();
 
-    $router->set404(function(){
-        echo "la page page n'a pas été trouvé";
+    $router->get('/', function () {
+        PageController::index();
     });
 
-    $router->get('/' , function(){
-        echo PageController::index();
+    $router->mount('/city', function () use ($router) {
+
+        $router->get('/show/{id}', function ($id) {
+            CityController::show($id);
+        });
+
+        $router->post('/update/{id}', function ($id) {
+            CityController::update($id);
+        });
+
+        $router->get('/delete/{id}', function ($id) {
+            CityController::delete($id);
+        });
+
+        $router->post('/search', function () {
+            CityController::search($_POST['keyword']);
+        });
     });
 
-    $router->get('/city/{id}', function($id){
-        CityController::show($id);
+    $router->mount('/country', function () use ($router) {
+        $router->get('/show/{id}', function ($id) {
+            CountryController::show($id);
+        });
+
+        $router->post('/update/{id}', function($id){
+            CountryController::update($id);
+        });
+
+        $router->get('/delete/{id}', function($id){
+            CountryController::delete($id);
+        });
+
+
+
     });
 
-    $router->get('/country/{id}', function($id){
-        CountryController::show($id);
-    });
-
-    $router->get('/continent/{cont}', function($continent){
+    $router->get('/continent/{cont}', function ($continent) {
         CountryController::findFromContinent($continent);
     });
 
-    
+
+    $router->set404(function () {
+        echo "la page page n'a pas été trouvé";
+    });
+
     $router->run();
     ?>
 </body>
