@@ -1,0 +1,48 @@
+<?php
+
+namespace Models\Core;
+
+class Request{
+
+    private $url;
+
+    public $params = [];
+
+
+    public function __construct(){
+        $data = file_get_contents("php://input");
+        parse_str($data, $this->params);
+        foreach($this->params as $param => &$value){
+            $value = htmlspecialchars($value);
+            $this->{$param} = $value;
+        }
+    }
+
+
+    public function all(){
+        return $this->params;
+    }
+
+    public function only(string ...$params){
+        $data = [];
+        foreach($params as $param){
+            if($this->has($param)){
+                $data[] = $this->{$param};
+            }
+        }
+        return $data;
+    }
+
+
+    public function input(string $input){
+        return $this->{$input};
+    }
+
+
+    public function has(string $input){
+        return isset($this->{$input});
+    }
+}
+
+
+?>

@@ -3,12 +3,15 @@ namespace Controllers;
 
 use Renderer;
 
-class PageController{
+class PageController extends Controller{
 
-    public static function index(){
+    public function index(){
         echo  Renderer::render('home.php');
     }
 
+    public function notFound(){
+        echo Renderer::render('404.php');
+    }
     
 }
 ?>

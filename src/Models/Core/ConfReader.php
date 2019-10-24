@@ -1,5 +1,5 @@
 <?php
-namespace Models;
+namespace Models\Core;
 
 
 abstract class ConfReader{

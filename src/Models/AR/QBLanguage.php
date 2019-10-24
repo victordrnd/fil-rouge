@@ -3,7 +3,7 @@
 namespace Models\AR;
 
 use Models\AR\QueryBuilder;
-use Models\Singleton;
+use Models\Core\Singleton;
 use Models\Language;
 
 abstract class QBLanguage extends QueryBuilder

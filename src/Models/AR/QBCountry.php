@@ -3,7 +3,7 @@ namespace Models\AR;
 
 use Models\AR\QueryBuilder;
 use Models\Country;
-use Models\Singleton;
+use Models\Core\Singleton;
 
 abstract class QBCountry extends QueryBuilder
 {

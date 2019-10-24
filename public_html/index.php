@@ -12,65 +12,37 @@
 
 <body>
     <?php
-
-    use Controllers\CityController;
-    use Controllers\CountryController;
-    use Controllers\PageController;
-
     require_once '../src/autoload.php';
 
     Autoloader::register();
 
     $router = new Router();
+    $router->setNamespace('\Controllers');
 
-    $router->get('/', function () {
-        PageController::index();
-    });
+    $router->get('/', 'PageController@index');
 
     $router->mount('/city', function () use ($router) {
-
-        $router->get('/show/{id}', function ($id) {
-            CityController::show($id);
-        });
-
-        $router->post('/update/{id}', function ($id) {
-            CityController::update($id);
-        });
-
-        $router->get('/delete/{id}', function ($id) {
-            CityController::delete($id);
-        });
-
-        $router->post('/search', function () {
-            CityController::search($_POST['keyword']);
-        });
+        $router->get('/show/{id}', 'CityController@show');
+        $router->get('/add/{countryCode}', 'CityController@createCityView');
+        $router->post('/add', 'CityController@create');
+        $router->post('/update/{id}', 'CityController@update');
+        $router->get('/delete/{id}', 'CityController@delete');
+        $router->post('/search', 'CityController@search');
     });
 
     $router->mount('/country', function () use ($router) {
-        $router->get('/show/{id}', function ($id) {
-            CountryController::show($id);
-        });
-
-        $router->post('/update/{id}', function($id){
-            CountryController::update($id);
-        });
-
-        $router->get('/delete/{id}', function($id){
-            CountryController::delete($id);
-        });
-
-
-
+        $router->get('/', 'CountryController@showAll');
+        $router->get('/show/{id}', 'CountryController@show');
+        $router->get('/add', 'CountryController@createCountryView');
+        $router->post('/add', 'CountryController@create');
+        $router->post('/update/{id}', 'CountryController@update');
+        $router->get('/delete/{id}', 'CountryController@delete');
     });
-
-    $router->get('/continent/{cont}', function ($continent) {
-        CountryController::findFromContinent($continent);
-    });
+    $router->get('/continent/{cont}', 'CountryController@findFromContinent');
 
 
-    $router->set404(function () {
-        echo "la page page n'a pas été trouvé";
-    });
+
+    $router->set404('PageController@notFound');
 
     $router->run();
     ?>

@@ -3,7 +3,7 @@
 namespace Models\AR;
 
 use Models\City;
-use Models\Singleton;
+use Models\Core\Singleton;
 use Models\AR\QBTrait;
 
 abstract class QueryBuilder
@@ -14,7 +14,6 @@ abstract class QueryBuilder
      * Find object with selected id
      *
      * @param int $id
-     * @return void
      */
     public static function find($id)
     {
@@ -36,7 +35,8 @@ abstract class QueryBuilder
     {
         $SQL = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " =:id";
         $statement = $this->cnx->prepare($SQL);
-        $statement->bindParam("id", $this->getPrimaryKeyValue());
+        $primaryKeyValue= $this->getPrimaryKeyValue();
+        $statement->bindParam("id", $primaryKeyValue);
         if ($statement->execute()) {
             $this->setPrimaryKeyValue(0);
         }
@@ -44,7 +44,7 @@ abstract class QueryBuilder
 
 
     /**
-     * Save the calling entity
+     * Insert the calling entity
      *
      * @return void
      */
@@ -77,6 +77,38 @@ abstract class QueryBuilder
         }
     }
 
+    /**
+     * Create the entity with the specified columns
+     *
+     * @param array $columns
+     * @return void
+     */
+    public static function create(array $columns){
+        $SQL = "INSERT INTO ". static::$table. " (";
+        $last_key = end(array_keys($columns));
+        $indexed = "(";
+        foreach($columns as $key => $column){
+            if($key != $last_key){
+                $SQL .= "$key ,";
+                $indexed .= "?,";
+            }else{
+                $SQL .= "$key ) VALUES ";
+                $indexed .= "?)";
+            }
+        }
+        $SQL .= $indexed;
+        $values = array_values($columns);
+        foreach ($values as &$value) {
+            $value = htmlspecialchars($value);
+        }
+        $cnx = Singleton::getInstance()->cnx;
+        $cnx->setAttribute(\PDO::ATTR_EMULATE_PREPARES,TRUE);
+        $statement = $cnx->prepare($SQL);
+        $statement->execute($values);
+        $last_insert = get_called_class()::last();
+        return get_called_class()::find($last_insert->getPrimaryKeyValue());
+    }
+
 
 
     /**
@@ -90,7 +122,7 @@ abstract class QueryBuilder
         if ($this->getPrimaryKeyValue() == 0) {
             $this->save();
         }
-        $primaryKey = static::$primaryKey;
+        $class = new \ReflectionClass(get_called_class());
         $SQL = "UPDATE " . static::$table . " SET ";
         $last_key = end(array_keys($columns));
         foreach ($columns as $key => $value) {
@@ -98,8 +130,10 @@ abstract class QueryBuilder
                 $SQL .= "$key = ?, ";
             } else {
                 $SQL .= "$key = ? ";
-             }
-            $this->{$key} = $value;
+            }
+            if($class->hasProperty($key)){
+                $this->{$key} = $value;
+            }
         }
         $SQL .= "WHERE " . static::$primaryKey . " = ?";
         $values = array_values($columns);
@@ -140,5 +174,43 @@ abstract class QueryBuilder
         $statement->execute();
         $res = $statement->fetchObject();
         return $res->count;
+    }
+
+
+    /**
+     * Return array of Object with specified conditions
+     *
+     * @param [type] $column
+     * @param [type] $value
+     * @return void
+     */
+    public static function where(string $column, $operator = "=", $value = null)
+    {
+        $operators = ['=', '>=', '>', '<', '<=', '!='];
+        if (in_array($operator, $operators)) {
+            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . $operator . " ?";
+        } else {
+            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . " = ?";
+            $value = $operator;
+        }
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
+        $statement->execute(array($value));
+        $statement->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
+        $array = $statement->fetchAll();
+        return $array;
+    }
+
+
+    /**
+     * Return last inserted Object from calling class
+     *
+     * @return void
+     */
+    public static function last(){
+        $SQL = "SELECT * FROM ".static::$table." ORDER BY ".static::$primaryKey." DESC LIMIT 1";
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
+        $statement->execute();
+        $object = $statement->fetchObject(get_called_class());
+        return $object;
     }
 }

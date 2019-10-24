@@ -1,5 +1,5 @@
 <?php
-include_once ('header.php');
+include_once(dirname(__DIR__) .'/header.php');
 ?>
 <div class="container my-5">
   <?php

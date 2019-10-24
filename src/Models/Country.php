@@ -3,9 +3,9 @@
 namespace Models;
 
 use Models\AR\QBCountry;
-use Models\Model;
+use Models\Core\Model;
 
-class Country extends QBCountry 
+class Country extends QBCountry
 {
    use Model;
 

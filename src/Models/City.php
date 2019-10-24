@@ -4,7 +4,7 @@ namespace Models;
 
 
 use Models\AR\QBCity;
-use Models\Model;
+use Models\Core\Model;
 
 class City extends QBCity
 {

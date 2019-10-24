@@ -9,6 +9,5 @@ trait QBTrait{
     {
         $this->cnx = $cnx;
     }
-
 }
 ?>

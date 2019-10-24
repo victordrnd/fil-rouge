@@ -4,7 +4,7 @@ namespace Models\AR;
 
 use Models\City;
 use Models\AR\QueryBuilder;
-use Models\Singleton;
+use Models\Core\Singleton;
 use Models\Country;
 
 abstract class QBCity extends QueryBuilder

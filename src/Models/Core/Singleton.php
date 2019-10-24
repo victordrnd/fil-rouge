@@ -1,6 +1,6 @@
 <?php
-namespace Models;
-use Models\ConfReader;
+namespace Models\Core;
+use Models\Core\ConfReader;
 
 class Singleton extends ConfReader
 {

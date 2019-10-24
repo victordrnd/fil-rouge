@@ -1,15 +1,12 @@
 <?php
-include_once('header.php');
+include_once(dirname(__DIR__) .'/header.php');
 ?>
-<!-- <th scope="row"><?= $city->getCityId() ?></th>
-<td><?= $city->getName() ?></td>
-<td><?= $city->getCountryCode() ?></td>
-<td><?= $city->getPopulation() ?></td> -->
 
 <div class="my-5">
     <div class="row">
         <div class="offset-2 col">
             <a href="/public_html/country/show/<?= $country->Country_Id ?>"><i class="fa fa-chevron-left"></i> Afficher le pays</a>
+            <a href="/public_html/city/delete/<?=$city->getCityId()?>" class="btn btn-danger  float-right">Supprimer <i class="fa fa-trash"></i></a>
             <div class="card border-0 shadow p-2 my-4">
                 <div class="row mt-5 mx-5">
                     <div class="col-12">
@@ -46,7 +43,7 @@ include_once('header.php');
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <a href="/public_html/city/delete/<?=$city->getCityId()?>" class="btn btn-danger mt-4">Supprimer <i class="fa fa-trash"></i></a>
+                                    
                                 </div>
                                 <div class="col">
                                     <button type="submit" class="btn btn-primary mt-4 float-right">Enregistrer <i class="fa fa-save"></i></button>
