@@ -33,10 +33,15 @@
     $router->get('/country/{id}', function($id){
         CountryController::show($id);
     });
+    
+    $router->get('/country/delete/{id}' , function($id){
+        CountryController::delete($id);
+    });
 
     $router->get('/continent/{cont}', function($continent){
         CountryController::findFromContinent($continent);
     });
+
 
     
     $router->run();

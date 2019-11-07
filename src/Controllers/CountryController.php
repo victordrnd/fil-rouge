@@ -25,5 +25,32 @@ class CountryController{
     }
 
 
+    public static function delete($id){
+        //Recupérer le pays avec find
+
+        $pays = Country::find($id);
+
+        //Supprimer toutes les villes 
+
+        $villes = City::findFromCountry($pays);
+
+        foreach ($villes as $ville) {
+            $ville->remove();
+        }
+        //Supprimer tout les languages du pays
+        $langues = Language::findLanguagesFromPays($pays->Code);
+        foreach ($langues as  $langue) {
+            $langue->remove();
+        }
+        //Supprimer le pays
+
+        $pays->remove();
+
+
+        //Rediriger vers les pays du continent
+
+       header('location: /public_html/continent/'.$pays->$continent);
+    }
+
 }
 ?>
