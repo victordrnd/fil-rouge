@@ -3,7 +3,7 @@
 namespace Models;
 
 use Models\AR\QBLanguage;
-use Models\Model;
+use Models\Core\Model;
 
 class Language extends QBLanguage
 {

@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat+Subrayada&display=swap');
+
+.logo{
+    font-family: 'Montserrat Subrayada', sans-serif;
+}
+.pointer{
+    cursor:pointer;
+}
+a{
+    text-decoration: none;
+}

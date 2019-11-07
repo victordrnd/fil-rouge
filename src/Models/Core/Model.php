@@ -1,6 +1,7 @@
 <?php
 
-namespace Models;
+namespace Models\Core;
+
 
 trait Model {
 
@@ -18,7 +19,10 @@ trait Model {
 
     protected function setPrimaryKeyValue(int $value)
     {
-        $this->{static::$primaryKey} = $value;
+        $class = new \ReflectionClass(get_called_class());
+        if($class->hasProperty("primaryKey")){
+            $this->{static::$primaryKey} = $value;
+        }
     }
 
     
