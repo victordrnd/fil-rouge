@@ -4,18 +4,14 @@ namespace Models\Core;
 
 class Request{
 
-    private $url;
+    public $url;
 
     public $params = [];
 
 
     public function __construct(){
-        $data = file_get_contents("php://input");
-        parse_str($data, $this->params);
-        foreach($this->params as $param => &$value){
-            $value = htmlspecialchars($value);
-            $this->{$param} = $value;
-        }
+       $this->extractInputs();
+       $this->extractHeader();
     }
 
 
@@ -42,7 +38,18 @@ class Request{
     public function has(string $input){
         return isset($this->{$input});
     }
+
+
+    private function extractInputs(){
+        $data = file_get_contents("php://input");
+        parse_str($data, $this->params);
+        foreach($this->params as $param => &$value){
+            $value = htmlspecialchars($value);
+            $this->{$param} = $value;
+        }
+    }
+
+    private function extractHeader(){
+        $this->url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    }
 }
-
-
-?>

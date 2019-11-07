@@ -1,7 +1,19 @@
 <?php
-include_once ('header.php');
+include_once('header.php');
 ?>
+<link rel="stylesheet" type="text/css" href="/public_html/css/world/cssmap-continents.css" media="screen" />
 
+<h1 class="text-center logo mt-3 text-muted">World Database <i class="fas fa-globe-americas"></i></h1>
+<div id="map-continents" class="my-5">
+    <ul class="continents">
+        <li class="c1"><a href="/public_html/continent/Africa">Afrique</a></li>
+        <li class="c2"><a href="/public_html/continent/Asia">Asie</a></li>
+        <li class="c3"><a href="/public_html/continent/Oceania">Océanie</a></li>
+        <li class="c4"><a href="/public_html/continent/Europe">Europe</a></li>
+        <li class="c5"><a href="/public_html/continent/North%20America">Amérique du nord</a></li>
+        <li class="c6"><a href="/public_html/continent/South%20America">Amérique du sud</a></li>
+    </ul>
+</div>
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-4 text-center mx-auto mt-5">
@@ -17,7 +29,7 @@ include_once ('header.php');
 
         <div class="col-lg-4 text-center mx-auto mt-5">
             <div class="card border-0 shadow" style="width: 18rem;">
-            <img src="https://img-4.linternaute.com/fhwZf2QIh4MgxB_ha8qvDYsqApU=/1240x/smart/e6d5ba1b0dc44685a2e8f02bf1d8ec01/ccmcms-linternaute/10214259-les-plus-belles-plages-d-asie.jpg" class="card-img-top" alt="...">
+                <img src="https://img-4.linternaute.com/fhwZf2QIh4MgxB_ha8qvDYsqApU=/1240x/smart/e6d5ba1b0dc44685a2e8f02bf1d8ec01/ccmcms-linternaute/10214259-les-plus-belles-plages-d-asie.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">L'Asie</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -81,6 +93,23 @@ include_once ('header.php');
             </div>
         </div>
 
-        
+
     </div>
 </div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // CSSMap;
+        $("#map-continents").CSSMap({
+            "size": 1450,
+            "mapStyle": "default"
+        });
+        // END OF THE CSSMap;
+
+    });
+</script>

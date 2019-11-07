@@ -28,6 +28,19 @@ class Resolver
         return $reflect->newInstanceArgs($dependencies);
     }
 
+    /**
+     * Return list of dependencies of a function
+     *
+     * @param [type] $class
+     * @param [type] $method
+     * @return array
+     */
+    public static function resolveFunction($class, $method)
+    {
+        $reflect = new \ReflectionMethod($class, $method);
+        $parameters = $reflect->getParameters();
+        return self::getDependencies($parameters);
+    }
 
     /**
      * Build dependencies from the params given 
@@ -43,26 +56,11 @@ class Resolver
             if (is_null($paramClass)) {
                 if ($param->isDefaultValueAvailable()) {
                     $dependencies[] = $param->getDefaultValue();
-                }    
+                }
             } else {
                 $dependencies[] = self::resolve($paramClass->name);
             }
         }
         return $dependencies;
-    }
-
-
-    /**
-     * Return list of dependencies of a function
-     *
-     * @param [type] $class
-     * @param [type] $method
-     * @return array
-     */
-    public static function resolveFunction($class, $method)
-    {
-        $reflect = new \ReflectionMethod($class, $method);
-        $parameters = $reflect->getParameters();
-        return self::getDependencies($parameters);
     }
 }

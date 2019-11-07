@@ -21,7 +21,7 @@
 
     $router->get('/', 'PageController@index');
 
-    $router->mount('/city', function () use ($router) {
+    $router->group('/city', function () use ($router) {
         $router->get('/show/{id}', 'CityController@show');
         $router->get('/add/{countryCode}', 'CityController@createCityView');
         $router->post('/add', 'CityController@create');
@@ -30,7 +30,7 @@
         $router->post('/search', 'CityController@search');
     });
 
-    $router->mount('/country', function () use ($router) {
+    $router->group('/country', function () use ($router) {
         $router->get('/', 'CountryController@showAll');
         $router->get('/show/{id}', 'CountryController@show');
         $router->get('/add', 'CountryController@createCountryView');

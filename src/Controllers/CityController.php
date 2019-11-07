@@ -51,6 +51,12 @@ class CityController extends Controller
         echo Renderer::render('city/cities.php', compact('cities', 'caller', 'name'));
     }
 
+    /**
+     * Create a new City from form.
+     *
+     * @param Request $req
+     * @return void
+     */
     public function create(Request $req){
         $city = City::create([
             'name' => $req->name,

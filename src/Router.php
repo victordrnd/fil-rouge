@@ -167,7 +167,7 @@ class Router
      * @param callback $fn
      * @return void
      */
-    public function mount(string $baseRoute, \Closure $fn)
+    public function group(string $baseRoute, \Closure $fn)
     {
         $curBaseRoute = $this->baseRoute;
         $this->baseRoute .= $baseRoute;
