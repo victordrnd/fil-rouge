@@ -32,5 +32,11 @@
       <input class="form-control mr-sm-2 rounded-0" type="search" name="keyword" placeholder="Rechercher" aria-label="Search">
       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
     </form>
+
+    <a class="mx-2 pointer" href="/public_html/auth/signin">
+      <i  class="fa fa-user text-white"></i> <?php if(isset($_SESSION['user'])){
+      }
+      ?>
+    </a>
   </div>
 </nav>

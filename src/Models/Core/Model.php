@@ -8,7 +8,7 @@ trait Model {
 
     public function __construct()
     {
-       parent::__construct(Singleton::getInstance()->cnx);
+       
     }
 
     

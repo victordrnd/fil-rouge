@@ -1,3 +1,7 @@
+<?php
+session_start();
+var_dump($_SESSION['nom']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +24,14 @@
     $router->setNamespace('\Controllers');
 
     $router->get('/', 'PageController@index');
+
+    //Auth
+    $router->group('/auth', function() use ($router){
+        $router->get('/signin', 'AuthController@signIn');
+        $router->post('/signin', 'AuthController@verifySignIn');
+        $router->get('/register', 'AuthController@register');
+        $router->post('/register', 'AuthController@verifyRegister');
+    });
 
     $router->group('/city', function () use ($router) {
         $router->get('/show/{id}', 'CityController@show');

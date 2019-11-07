@@ -4,11 +4,9 @@ namespace Models\AR;
 
 use Models\City;
 use Models\Core\Singleton;
-use Models\AR\QBTrait;
 
 abstract class QueryBuilder
 {
-    use QBTrait;
 
     /**
      * Find object with selected id
@@ -34,7 +32,7 @@ abstract class QueryBuilder
     public function remove(): void
     {
         $SQL = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " =:id";
-        $statement = $this->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $primaryKeyValue= $this->getPrimaryKeyValue();
         $statement->bindParam("id", $primaryKeyValue);
         if ($statement->execute()) {
@@ -70,7 +68,7 @@ abstract class QueryBuilder
             }
             $values[] = $this->{$attribut};
         }
-        $statement = $this->cnx->prepare($SQL);
+        $statement =Singleton::getInstance()->cnx->prepare($SQL);
         $code = $statement->execute($values);
         if ($code) {
             $this->setPrimaryKeyValue($this->cnx->lastInsertId());
@@ -142,7 +140,7 @@ abstract class QueryBuilder
         }
         $id = $this->getPrimaryKeyValue();
         $values[] = $id;
-        $statement = $this->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $statement->execute($values);
     }
 

@@ -52,4 +52,9 @@ class Request{
     private function extractHeader(){
         $this->url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     }
+
+
+    public function __get($property){
+        return null;
+    }
 }

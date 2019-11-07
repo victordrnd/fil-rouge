@@ -9,7 +9,6 @@ class Renderer
         if ($data != null) {
             extract($data);
         }
-        // var_dump($data);
         include_once $path;
         $content = ob_get_contents();
         ob_end_clean();
