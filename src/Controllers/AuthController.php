@@ -4,11 +4,12 @@ namespace Controllers;
 
 use Exception;
 use Renderer;
+use Controllers\Controller;
 use Models\User;
 use Models\Core\Request;
 use Models\Facades\Auth;
 
-class AuthController
+class AuthController extends Controller
 {
 
     public function signIn()

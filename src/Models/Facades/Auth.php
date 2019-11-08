@@ -2,6 +2,7 @@
 namespace Models\Facades;
 
 use Models\User;
+use Models\Permission;
 
 class Auth{
 
@@ -23,7 +24,11 @@ class Auth{
      * @return boolean
      */
     public static function has($permission) : bool {
-        return true;
+        if(isset($_SESSION['permission'])){
+            return $_SESSION['permission'] & $permission;
+        }else{
+            return false;
+        }
     }
 
 
@@ -35,7 +40,12 @@ class Auth{
      */
     public static function log(User $user) : void{
         $_SESSION['nom'] = $user->getNom();
-        $_SESSION['permission'] = 1111;
+
+        $permissions = 0000;
+        foreach($user->getRoles() as $role){
+            $permissions = $role->getPermissions() | $permissions;
+        }
+        $_SESSION['permissions'] = $permissions;
     }
 
 

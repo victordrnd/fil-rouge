@@ -13,7 +13,7 @@ abstract class QueryBuilder
      *
      * @param int $id
      */
-    public static function find($id)
+    public static function find(int $id)
     {
         $SQL = "SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
         $statement = Singleton::getInstance()->cnx->prepare($SQL);

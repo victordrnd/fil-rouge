@@ -33,8 +33,9 @@
       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
     </form>
 
-    <a class="mx-2 pointer" href="/public_html/auth/signin">
-      <i  class="fa fa-user text-white"></i> <?php if(isset($_SESSION['user'])){
+    <a class="mx-2 pointer text-white text-decoration-none" href="/public_html/auth/signin">
+      <i  class="fa fa-user"></i> <?php if(isset($_SESSION['nom'])){
+        echo $_SESSION['nom'];
       }
       ?>
     </a>

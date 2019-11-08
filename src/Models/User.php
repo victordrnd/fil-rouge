@@ -3,9 +3,9 @@
 namespace Models;
 
 use Models\Core\Model;
-use Models\AR\QueryBuilder;
+use Models\AR\QBUser;
 
-class User extends QueryBuilder
+class User extends QBUser
 {
     use Model;
 
@@ -13,6 +13,9 @@ class User extends QueryBuilder
     protected $nom;
     protected $login;
     protected $password;
+
+    protected $roles = [];
+
     /**
      * Table name
      *
@@ -74,6 +77,10 @@ class User extends QueryBuilder
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getRoles(){
+        return $this->roles;
     }
 
 

@@ -1,6 +1,5 @@
 <?php
 session_start();
-var_dump($_SESSION['nom']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +18,8 @@ var_dump($_SESSION['nom']);
     require_once '../src/autoload.php';
 
     Autoloader::register();
+    use Models\Facades\Auth;
+    use Models\Permission;
 
     $router = new Router();
     $router->setNamespace('\Controllers');
@@ -53,8 +54,22 @@ var_dump($_SESSION['nom']);
     $router->get('/continent/{cont}', 'CountryController@findFromContinent');
 
 
+    $router->group('/admin/panel', function() use ($router){
+        $router->get('/', 'AdminController@index');
+    });
 
+    
     $router->set404('PageController@notFound');
+
+
+
+    //MiddleWares
+    $router->before('GET|POST', '/admin/panel/.*', function() {
+        if (!Auth::has(Permission::CANMANAGEUSERS)) {
+            header('location: /public_html/');
+            exit();
+        }
+    });
 
     $router->run();
     ?>
