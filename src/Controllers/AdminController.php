@@ -13,6 +13,7 @@ class AdminController extends Controller
 {
 
     public function index(){
+        
         $users = User::all();
         $roles = Role::all();
         echo Renderer::render('auth/panel/index.php', compact('users', 'roles'));
@@ -20,7 +21,7 @@ class AdminController extends Controller
 
 
     public function updateUserRole(Request $req, $id){
-        $user_roles = UserRole::where('user_id', $id);
+        $user_roles = UserRole::where('user_id', $id)->get();
         foreach($user_roles as $user_role){
             $user_role->remove();
         }

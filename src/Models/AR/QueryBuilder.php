@@ -4,8 +4,9 @@ namespace Models\AR;
 
 use Models\City;
 use Models\Core\Singleton;
-
-abstract class QueryBuilder
+use Models\AR\Relationship;
+use Models\Core\Collection;
+abstract class QueryBuilder extends Relationship
 {
 
     /**
@@ -182,11 +183,11 @@ abstract class QueryBuilder
      * @param [type] $value
      * @return void
      */
-    public static function where(string $column, $operator = "=", $value = null)
+    public static function where($column, $operator = "=", $value = null)
     {
-        $operators = ['=', '>=', '>', '<', '<=', '!='];
+        $operators = ['=', '>=', '>', '<', '<=', '!=', 'LIKE'];
         if (in_array($operator, $operators)) {
-            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . $operator . " ?";
+            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column ." ". $operator . " ?";
         } else {
             $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . " = ?";
             $value = $operator;
@@ -195,7 +196,7 @@ abstract class QueryBuilder
         $statement->execute(array($value));
         $statement->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
         $array = $statement->fetchAll();
-        return $array;
+        return new Collection($array);
     }
 
 

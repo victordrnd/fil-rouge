@@ -16,7 +16,7 @@ class Auth
      */
     public static function isLogged(): bool
     {
-        return isset($_SESSION['user']);
+        return isset($_SESSION['nom']) && isset($_SESSION['permissions']);
     }
 
 
@@ -42,11 +42,11 @@ class Auth
      * @param User $user
      * @return void
      */
-    public static function log(User $user): void
+    public static function log($user): void
     {
         $_SESSION['nom'] = $user->getNom();
         $permissions = "00000000";
-        foreach ($user->getRoles() as $role) {
+        foreach ($user->roles() as $role) {
              $permissions =  $role->getPermissions() |  $permissions;
         }
         $_SESSION['permissions'] = $permissions;
@@ -55,9 +55,8 @@ class Auth
 
     public static function attempt(array $credentials): bool
     {
-        $user = User::where('login', $credentials[0]);
-        if (isset($user[0])) {
-            $user = $user[0];
+        $user = User::where('login', $credentials[0])->with('roles')->first();
+        if (!is_null($user)) {
             if (password_verify($credentials[1], $user->getPassword())) {
                 self::log($user);
                 return true;

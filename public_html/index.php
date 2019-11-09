@@ -73,7 +73,6 @@ session_start();
     });
 
     $router->before('GET|POST', '/auth/.*', function() {
-        //TODO
         if (Auth::has(Permission::CANMANAGEUSERS)) {
             header('location: /public_html/admin/panel');
             exit();

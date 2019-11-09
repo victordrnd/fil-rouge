@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Exception;
 use Renderer;
 use Controllers\Controller;
 use Models\User;
@@ -25,7 +24,7 @@ class AuthController extends Controller
         } catch (\Exception $e) { 
             $error = $e->getMessage();
             echo Renderer::render('/auth/signin.php', compact('error'));
-            die;
+            exit();
         }
         header('location:/public_html/admin/panel');
     }
@@ -38,22 +37,23 @@ class AuthController extends Controller
 
     public function verifyRegister(Request $req){
         if($req->password == $req->password2){
-            if(empty(User::where('login', $req->login))){
+            if(empty(User::where('login', $req->login)->get())){
                 $user = User::create([
                     'nom' => $req->fullname,
                     'login' => $req->login,
                     'password' => password_hash($req->password, PASSWORD_DEFAULT)
                 ]);
+                Auth::log($user);
                 header('location:/public_html');
+                exit();
             }
             else{
                 $error = "Le nom d'utilisateur saisis est déjà utilisé";
-                echo Renderer::render('/auth/register.php', compact('error'));
             }
         }else{
             $error = "Les mots de passes saisis ne correspondent pas";
-            echo Renderer::render('/auth/register.php', compact('error'));
         }
+        echo Renderer::render('/auth/register.php', compact('error'));
 
     }
 

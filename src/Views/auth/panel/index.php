@@ -26,7 +26,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/src/Views/header.php');
               <td><select multiple class="form-control" name="roles[]">
                   <?php
                     foreach ($roles as $role) :
-                      if (in_array($role, $user->getRoles())) :
+                      if (in_array($role, $user->roles())) :
                         ?>
                       <option value="<?=$role->getRoleId()?>" selected><?= $role->getLibelle() ?></option>
                     <?php
