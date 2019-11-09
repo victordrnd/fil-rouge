@@ -1,12 +1,19 @@
 <?php
-include_once(dirname(__DIR__) .'/header.php');
+include_once(dirname(__DIR__) . '/header.php');
+$disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disabled";
 ?>
 
 <div class="my-5">
     <div class="row">
         <div class="offset-2 col">
             <a href="/public_html/country/show/<?= $country->Country_Id ?>"><i class="fa fa-chevron-left"></i> Afficher le pays</a>
-            <a href="/public_html/city/delete/<?=$city->getCityId()?>" class="btn btn-danger  float-right">Supprimer <i class="fa fa-trash"></i></a>
+            <?php
+            if (Models\Facades\Auth::has(Models\Permission::CANDELETE)) :
+                ?>
+                <a href="/public_html/city/delete/<?= $city->getCityId() ?>" class="btn btn-danger  float-right">Supprimer <i class="fa fa-trash"></i></a>
+            <?php
+            endif;
+            ?>
             <div class="card border-0 shadow p-2 my-4">
                 <div class="row mt-5 mx-5">
                     <div class="col-12">
@@ -23,32 +30,35 @@ include_once(dirname(__DIR__) .'/header.php');
 
                                 <div class="col-6 mt-3">
                                     <label>Nom</label>
-                                    <input type="text" name="name" class="form-control disabled" value="<?= $city->getName() ?>" onkeyup="this.value = this.value.toUpperCase();">
+                                    <input type="text" name="name" class="form-control disabled" value="<?= $city->getName() ?>" onkeyup="this.value = this.value.toUpperCase();" <?= $disabled ?>>
                                 </div>
 
                                 <div class="col-6 mt-3">
                                     <label>Région</label>
-                                    <input type="text" name="district" class="form-control" value="<?= $city->getDistrict() ?>">
+                                    <input type="text" name="district" class="form-control" value="<?= $city->getDistrict() ?>" <?= $disabled ?>>
                                 </div>
 
                                 <div class="col-6 mt-3">
                                     <label>Population</label>
-                                    <input type="number" name="population" class="form-control" value="<?= $city->getPopulation() ?>">
+                                    <input type="number" name="population" class="form-control" value="<?= $city->getPopulation() ?>" <?= $disabled ?>>
                                 </div>
 
                                 <div class="col-6 mt-3">
                                     <label>Code Pays</label>
-                                    <input type="text" name="countryCode" class="form-control" value="<?= $city->getCountryCode() ?>" maxlength="3">
+                                    <input type="text" name="countryCode" class="form-control" value="<?= $city->getCountryCode() ?>" maxlength="3" <?= $disabled ?>>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    
+                            <?php
+                            if (Models\Facades\Auth::has(Models\Permission::CANUPDATE)) :
+                                ?>
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary mt-4 float-right">Enregistrer <i class="fa fa-save"></i></button>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <button type="submit" class="btn btn-primary mt-4 float-right">Enregistrer <i class="fa fa-save"></i></button>
-                                </div>
-                            </div>
+                            <?php
+                            endif;
+                            ?>
 
                         </form>
                     </div>

@@ -1,9 +1,16 @@
 <?php
 include_once(dirname(__DIR__) . '/header.php');
+$disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disabled";
 ?>
 <div class="container my-5">
   <a href="/public_html/continent/<?= $country->Continent ?>"><i class="fa fa-chevron-left"></i> Retour à la liste des pays du continent</a>
-  <a href="/public_html/country/delete/<?= $country->Country_Id ?>" class="btn btn-danger text-white float-right pointer">Supprimer <i class="fa fa-trash"></i></a>
+  <?php
+  if (Models\Facades\Auth::has(Models\Permission::CANDELETE)) :
+    ?>
+    <a href="/public_html/country/delete/<?= $country->Country_Id ?>" class="btn btn-danger text-white float-right pointer">Supprimer <i class="fa fa-trash"></i></a>
+  <?php
+  endif;
+  ?>
   <div class="card border-0 shadow-sm my-4">
     <div class="row my-5 mx-5">
       <div class="col-12">
@@ -11,39 +18,39 @@ include_once(dirname(__DIR__) . '/header.php');
       </div>
       <div class="col-6">
         <h3>Informations complémentaires:</h3>
-        <form class="list-unstyled shadow-sm pt-4" method="post" action="/public_html/country/update/<?= $country->Country_Id ?>">
+        <form class="list-unstyled shadow-sm py-4" method="post" action="/public_html/country/update/<?= $country->Country_Id ?>">
           <div class="px-4">
             <label class="list-item">ID :</label>
-            <input type="text" class="form-control rounded-0 disabled" disabled value="<?= $country->Country_Id ?>">
+            <input type="text" class="form-control rounded-0 disabled" disabled value="<?= $country->Country_Id ?>" <?= $disabled ?>>
             <label class="list-item">Nom : </label>
-            <input type="text" name="name" class="form-control rounded-0 " value="<?= $country->Name ?>">
+            <input type="text" name="name" class="form-control rounded-0 " value="<?= $country->Name ?>" <?= $disabled ?>>
             <label class="list-item">Region : </label>
-            <input type="text" name="region" class="form-control rounded-0" value="<?= $country->Region ?>">
+            <input type="text" name="region" class="form-control rounded-0" value="<?= $country->Region ?>" <?= $disabled ?>>
             <label class="list-item">Population : </label>
-            <input type="text" name="population" class="form-control rounded-0" value="<?= $country->Population ?>">
+            <input type="text" name="population" class="form-control rounded-0" value="<?= $country->Population ?>" <?= $disabled ?>>
             <label class="list-item">Date d'indépendance : </label>
-            <input type="text" name="indepyear" class="form-control rounded-0" value="<?= $country->IndepYear ?>">
+            <input type="text" name="indepyear" class="form-control rounded-0" value="<?= $country->IndepYear ?>" <?= $disabled ?>>
             <label class="list-item">Capital : </label>
-            <select class="form-control rounded-0" name="capital">
+            <select class="form-control rounded-0" name="capital" <?= $disabled ?>>
               <?php
               if ($capital) :
                 ?>
                 <option value="<?= $capital->getCityId() ?>"><?= $capital->getName() ?></option>
-                <?php
+              <?php
               endif;
               ?>
               <option value="0">Non spécifié</option>
               <?php
               foreach ($cities as $city) :
-                    ?>
+                ?>
 
-                    <option value="<?= $city->getCityId() ?>"><?= $city->getName() ?></option>
+                <option value="<?= $city->getCityId() ?>"><?= $city->getName() ?></option>
               <?php
               endforeach;
               ?>
             </select>
             <label class="list-item">Continent :</label>
-            <select name="continent" class="form-control rounded-0">
+            <select name="continent" class="form-control rounded-0" <?= $disabled ?>>
               <option selected value="<?= $country->Continent ?>"><?= $country->Continent ?></option>
               <option value="Asia">Asia</option>
               <option value="Europe">Europe</option>
@@ -54,7 +61,13 @@ include_once(dirname(__DIR__) . '/header.php');
               <option value="South America">South America</option>
             </select>
           </div>
-          <button class="btn btn-primary  w-100 rounded-0 mt-4 py-2">Enregistrer</button>
+          <?php
+          if (Models\Facades\Auth::has(Models\Permission::CANUPDATE)) :
+            ?>
+            <button class="btn btn-primary  w-100 rounded-0 mt-4 py-2">Enregistrer</button>
+          <?php
+          endif;
+          ?>
         </form>
       </div>
       <div class="col-6">
@@ -73,7 +86,13 @@ include_once(dirname(__DIR__) . '/header.php');
 
 <div class="container my-5">
   <h2 class="text-center">Liste des villes du pays</h2>
-  <a href="/public_html/city/add/<?=$country->Code?>" class="text-primary pointer float-right mb-2">Ajouter une ville <i class="fa fa-plus"></i></a>
+  <?php
+  if (Models\Facades\Auth::has(Models\Permission::CANCREATE)) :
+    ?>
+    <a href="/public_html/city/add/<?= $country->Code ?>" class="text-primary pointer float-right mb-2">Ajouter une ville <i class="fa fa-plus"></i></a>
+  <?php
+  endif;
+  ?>
   <table class="table table-striped">
     <thead>
       <tr>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,11 +18,21 @@
     require_once '../src/autoload.php';
 
     Autoloader::register();
+    use Models\Facades\Auth;
+    use Models\Permission;
 
     $router = new Router();
     $router->setNamespace('\Controllers');
 
     $router->get('/', 'PageController@index');
+
+    $router->group('/auth', function() use ($router){
+        $router->get('/signin', 'AuthController@signIn');
+        $router->post('/signin', 'AuthController@verifySignIn');
+        $router->get('/register', 'AuthController@register');
+        $router->post('/register', 'AuthController@verifyRegister');
+    });
+    $router->get('/logout', 'AuthController@logout');
 
     $router->group('/city', function () use ($router) {
         $router->get('/show/{id}', 'CityController@show');
@@ -41,8 +54,30 @@
     $router->get('/continent/{cont}', 'CountryController@findFromContinent');
 
 
+    $router->group('/admin', function() use ($router){
+        $router->get('/panel', 'AdminController@index');
+        $router->post('/user/update/{id}', 'AdminController@updateUserRole');
+    });
 
+    
     $router->set404('PageController@notFound');
+
+
+
+    //MiddleWares
+    $router->before('GET|POST', '/admin/.*', function() {
+        if (!Auth::has(Permission::CANMANAGEUSERS)) {
+            header('location: /public_html/');
+            exit();
+        }
+    });
+
+    $router->before('GET|POST', '/auth/.*', function() {
+        if (Auth::has(Permission::CANMANAGEUSERS)) {
+            header('location: /public_html/admin/panel');
+            exit();
+        }
+    });
 
     $router->run();
     ?>

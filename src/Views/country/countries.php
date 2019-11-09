@@ -1,9 +1,15 @@
 <?php
-include_once(dirname(__DIR__) .'/header.php');
+include_once(dirname(__DIR__) . '/header.php');
 ?>
 <div class="container my-5">
   <h2 class="text-center"><?= $title ?></h2>
-  <a href="/public_html/country/add" class="text-primary float-right mb-2">Ajouter un pays <i class="fa fa-plus"></i></a>
+  <?php
+  if (Models\Facades\Auth::has(Models\Permission::CANCREATE)) :
+    ?>
+    <a href="/public_html/country/add" class="text-primary float-right mb-2">Ajouter un pays <i class="fa fa-plus"></i></a>
+  <?php
+  endif;
+  ?>
   <table class="table table-striped mt-2">
     <thead>
       <tr>
@@ -19,9 +25,9 @@ include_once(dirname(__DIR__) .'/header.php');
         ?>
         <tr>
           <th scope="row">
-        <img src="<?=$country->Image1?>" class="img-thumbnail p-0" width="30"></th>
+            <img src="<?= $country->Image1 ?>" class="img-thumbnail p-0" width="30"></th>
           <td><a href="/public_html/country/show/<?= $country->Country_Id ?>"><?= $country->Name ?></a></td>
-          <td><?= $capital[$index] ? $capital[$index]->getName() : "Non spécifié" ?></td>
+          <td><?= isset($country->capital) ? $country->capital->getName() : "Non spécifié" ?></td>
           <td><?= $country->Population ?></td>
         </tr>
       <?php

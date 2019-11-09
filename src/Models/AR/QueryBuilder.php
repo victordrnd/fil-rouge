@@ -4,18 +4,17 @@ namespace Models\AR;
 
 use Models\City;
 use Models\Core\Singleton;
-use Models\AR\QBTrait;
-
-abstract class QueryBuilder
+use Models\AR\Relationship;
+use Models\Core\Collection;
+abstract class QueryBuilder extends Relationship
 {
-    use QBTrait;
 
     /**
      * Find object with selected id
      *
      * @param int $id
      */
-    public static function find($id)
+    public static function find(int $id)
     {
         $SQL = "SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
         $statement = Singleton::getInstance()->cnx->prepare($SQL);
@@ -34,7 +33,7 @@ abstract class QueryBuilder
     public function remove(): void
     {
         $SQL = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " =:id";
-        $statement = $this->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $primaryKeyValue= $this->getPrimaryKeyValue();
         $statement->bindParam("id", $primaryKeyValue);
         if ($statement->execute()) {
@@ -52,7 +51,7 @@ abstract class QueryBuilder
     {
         if ($this->getPrimaryKeyValue() != 0) {
             $values = [];
-            $columns = $this->attributes;
+            $columns = static::$attributes;
             foreach ($columns as $column) {
                 if ($column != $this->primaryKey) {
                     $values[$column] = $this->{$this->$column};
@@ -62,15 +61,15 @@ abstract class QueryBuilder
         }
         $values = [];
         $SQL = "INSERT INTO " . static::$table . " VALUES (";
-        foreach ($this->attributes as $index => $attribut) {
-            if ($index + 1 == count($this->attributes)) {
+        foreach (static::$attributes as $index => $attribut) {
+            if ($index + 1 == count(static::$attributes)) {
                 $SQL .= "?)";
             } else {
                 $SQL .= "?,";
             }
             $values[] = $this->{$attribut};
         }
-        $statement = $this->cnx->prepare($SQL);
+        $statement =Singleton::getInstance()->cnx->prepare($SQL);
         $code = $statement->execute($values);
         if ($code) {
             $this->setPrimaryKeyValue($this->cnx->lastInsertId());
@@ -142,7 +141,7 @@ abstract class QueryBuilder
         }
         $id = $this->getPrimaryKeyValue();
         $values[] = $id;
-        $statement = $this->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $statement->execute($values);
     }
 
@@ -184,11 +183,11 @@ abstract class QueryBuilder
      * @param [type] $value
      * @return void
      */
-    public static function where(string $column, $operator = "=", $value = null)
+    public static function where($column, $operator = "=", $value = null)
     {
-        $operators = ['=', '>=', '>', '<', '<=', '!='];
+        $operators = ['=', '>=', '>', '<', '<=', '!=', 'LIKE'];
         if (in_array($operator, $operators)) {
-            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . $operator . " ?";
+            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column ." ". $operator . " ?";
         } else {
             $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . " = ?";
             $value = $operator;
@@ -197,7 +196,7 @@ abstract class QueryBuilder
         $statement->execute(array($value));
         $statement->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
         $array = $statement->fetchAll();
-        return $array;
+        return new Collection($array);
     }
 
 

@@ -29,11 +29,24 @@ class Country extends QBCountry
     *
     * @var array
     */
-   protected $attributes = [
+   protected static $attributes = [
       'Country_Id', 'Code', 'Name', 'Continent', 'Region', 'SurfaceArea', 'IndepYear',
       'Population', 'LifeExpectancy', 'GNP', 'GNPOld', 'LocalName', 'GovernmentForm', 'HeadOfState', 'Capital', 'Code2', 'Image1', 'Image2'
    ];
+   
+   public function cities(){
+      return $this->hasMany(City::class, 'Code', 'CountryCode');
+   }
 
+
+   public function languages(){
+      return $this->hasMany(Language::class, 'Code', 'CountryCode');
+   }
+
+
+   public function capital(){
+      return $this->hasOne(City::class, 'Capital', 'City_Id');
+   }
 
 
 

@@ -32,5 +32,21 @@
       <input class="form-control mr-sm-2 rounded-0" type="search" name="keyword" placeholder="Rechercher" aria-label="Search">
       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
     </form>
+
+    <a class="mx-2 pointer text-white text-decoration-none" href="/public_html/auth/signin">
+      <i class="fa fa-user"></i> <?php if (isset($_SESSION['nom'])) {
+                                    echo $_SESSION['nom'];
+                                  } else {
+                                    echo "Se connecter";
+                                  }
+                                  ?>
+    </a>
+    <?php
+    if (isset($_SESSION['nom'])) {
+      ?>
+      <a href="/public_html/logout" class="text-light"><i class="fas fa-power-off"></i></a>
+    <?php
+    }
+    ?>
   </div>
 </nav>
