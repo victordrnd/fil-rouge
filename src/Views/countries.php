@@ -17,7 +17,7 @@ include_once ('header.php');
           ?>
         <tr>
           <th scope="row"><?=$country->Country_Id?></th>
-          <td><a href="/public_html/country/<?=$country->Country_Id?>"><?=$country->Name?></a></td>
+          <td><a href="/public_html/country/show/<?=$country->Country_Id?>"><?=$country->Name?></a></td>
           <td><?=$capital[$index]->getName()?></td>
           <td><?=$country->Population?></td>
         </tr>

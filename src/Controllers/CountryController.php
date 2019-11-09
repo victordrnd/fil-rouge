@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Models\Country;
 use Models\City;
+use Models\Language;
 use Renderer;
 
 class CountryController{
@@ -12,6 +13,7 @@ class CountryController{
         $capital = City::find($country->Capital);
         $cities = City::findFromCountry($country);
         echo Renderer::render('country.php', compact('country', 'cities', 'capital'));
+        
     }
 
     public static function findFromContinent($continent){
@@ -29,27 +31,29 @@ class CountryController{
         //Recupérer le pays avec find
 
         $pays = Country::find($id);
-
         //Supprimer toutes les villes 
+        
 
-        $villes = City::findFromCountry($pays);
+        // $villes = City::findFromCountry($pays);
+        // print("<pre>".print_r($villes,true)."</pre>");
+        
+        // foreach ($villes as $ville) {
+        //     $ville->remove();l
+        // }
+        //var_dump($ville);
+        // //Supprimer tout les languages du pays
+        // $langues = Language::findLanguagesFromPays($pays->Code);
+        // foreach ($langues as  $langue) {
+        //     $langue->remove();
+        // }
+        // //Supprimer le pays
 
-        foreach ($villes as $ville) {
-            $ville->remove();
-        }
-        //Supprimer tout les languages du pays
-        $langues = Language::findLanguagesFromPays($pays->Code);
-        foreach ($langues as  $langue) {
-            $langue->remove();
-        }
-        //Supprimer le pays
-
-        $pays->remove();
+        $pays->remove(); 
 
 
         //Rediriger vers les pays du continent
 
-       header('location: /public_html/continent/'.$pays->$continent);
+       header('location: /public_html/');
     }
 
 }

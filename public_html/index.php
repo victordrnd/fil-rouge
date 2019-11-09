@@ -30,7 +30,7 @@
         CityController::show($id);
     });
 
-    $router->get('/country/{id}', function($id){
+    $router->get('/country/show/{id}', function($id){
         CountryController::show($id);
     });
     

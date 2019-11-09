@@ -4,13 +4,14 @@ namespace Models\AR;
 use Models\AR\QBTrait;
 use Models\AR\QueryBuilder;
 use Models\Language;
+use Models\Singleton;
 
 abstract class QBLanguage extends QueryBuilder
 {
     use QBTrait;
 
     public static function findLanguagesFromPays($countryCode){
-        $SQl = 'SELECT * from countrylanguage where CountryCode = :pays';
+        $SQL = 'SELECT * from countrylanguage where CountryCode = :pays';
         $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $statement->bindParam('pays', $countryCode);
         $statement->execute();
