@@ -32,7 +32,7 @@ include_once(dirname(__DIR__) . '/header.php');
                 </div>
                 <button class="btn btn-primary w-100 rounded-0">Connexion</button>
             </form>
-            <p class="text-center mt-2">Vous n'avez pas encore de compte ? <a class="text-primary" href="/public_html/auth/register">Inscrivez vous</a></p>
+            <p class="text-center mt-2">Vous avez déjà un compte ? <a class="text-primary" href="/public_html/auth/register">Connectez vous</a></p>
         </div>
 
     </div>

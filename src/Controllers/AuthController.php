@@ -27,7 +27,7 @@ class AuthController extends Controller
             echo Renderer::render('/auth/signin.php', compact('error'));
             die;
         }
-        header('location:/public_html');
+        header('location:/public_html/admin/panel');
     }
 
 
@@ -44,6 +44,7 @@ class AuthController extends Controller
                     'login' => $req->login,
                     'password' => password_hash($req->password, PASSWORD_DEFAULT)
                 ]);
+                header('location:/public_html');
             }
             else{
                 $error = "Le nom d'utilisateur saisis est déjà utilisé";
@@ -53,7 +54,12 @@ class AuthController extends Controller
             $error = "Les mots de passes saisis ne correspondent pas";
             echo Renderer::render('/auth/register.php', compact('error'));
         }
-        header('location : /public_html');
 
+    }
+
+
+    public function logout(){
+        session_destroy();
+        header('location:/public_html');
     }
 }

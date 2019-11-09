@@ -11,9 +11,7 @@ class QBUser extends QueryBuilder
 
     public static function create(array $columns)
     {
-
         $user = parent::create($columns);
-
         UserRole::create([
             'user_id' => $user->getUserId(),
             'role_id' => 1
@@ -26,11 +24,7 @@ class QBUser extends QueryBuilder
     public static function find(int $id)
     {
         $user = parent::find($id);
-
-        $user_roles = UserRole::where('user_id', $user->getUserId());
-        foreach ($user_roles as $user_role) {
-            $user->roles[] = Role::find($user_role->getRoleId());
-        }
+        self::getUserRole($user);
         return $user;
     }
 
@@ -39,12 +33,31 @@ class QBUser extends QueryBuilder
     public static function where(string $column, $operator = "=", $value = null)
     {
         $users = parent::where($column, $operator, $value);
-        foreach ($users as &$user) {
-            $user_roles = UserRole::where('user_id', $user->getUserId());
-            foreach ($user_roles as $user_role) {
-                $user->roles[] = Role::find($user_role->getRoleId());
-            }
-        }
+        self::getUsersRoles($users);
         return $users;
+    }
+
+
+    public static function all() : array
+    {
+        $users = parent::all();
+        self::getUsersRoles($users);
+        return $users;
+    }
+
+
+    private static function getUsersRoles(&$users)
+    {
+        foreach ($users as &$user) {
+            self::getUserRole($user);
+        }
+    }
+
+    private static function getUserRole(&$user)
+    {
+        $user_roles = UserRole::where('user_id', $user->getUserId());
+        foreach ($user_roles as $user_role) {
+            $user->roles[] = Role::find($user_role->getRoleId());
+        }
     }
 }

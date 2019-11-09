@@ -50,7 +50,7 @@ abstract class QueryBuilder
     {
         if ($this->getPrimaryKeyValue() != 0) {
             $values = [];
-            $columns = $this->attributes;
+            $columns = static::$attributes;
             foreach ($columns as $column) {
                 if ($column != $this->primaryKey) {
                     $values[$column] = $this->{$this->$column};
@@ -60,8 +60,8 @@ abstract class QueryBuilder
         }
         $values = [];
         $SQL = "INSERT INTO " . static::$table . " VALUES (";
-        foreach ($this->attributes as $index => $attribut) {
-            if ($index + 1 == count($this->attributes)) {
+        foreach (static::$attributes as $index => $attribut) {
+            if ($index + 1 == count(static::$attributes)) {
                 $SQL .= "?)";
             } else {
                 $SQL .= "?,";

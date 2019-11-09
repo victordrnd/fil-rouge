@@ -36,7 +36,7 @@ class User extends QBUser
      *
      * @var array
      */
-    protected $attributes = ['user_id', 'nom', 'login', 'password'];
+    protected static $attributes = ['user_id', 'nom', 'login', 'password'];
 
 
     /**

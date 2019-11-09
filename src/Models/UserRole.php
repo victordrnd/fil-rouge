@@ -33,7 +33,7 @@ class UserRole extends QueryBuilder{
      *
      * @var array
      */
-    protected $attributes = [
+    protected static $attributes = [
         'role_id', 'user_id'
     ];
 

@@ -8,6 +8,7 @@ class Role extends QueryBuilder{
     use Model;
 
     protected $role_id;
+    protected $libelle;
     protected $permissions;
 
     /**
@@ -30,14 +31,18 @@ class Role extends QueryBuilder{
      *
      * @var array
      */
-    protected $attributes = [
-        'user_id', 'permissions'
+    protected static $attributes = [
+        'user_id', 'libelle', 'permissions'
     ];
 
 
 
     public function getRoleId(){
         return $this->role_id;
+    }
+
+    public function getLibelle(){
+        return $this->libelle;
     }
 
     public function getPermissions(){

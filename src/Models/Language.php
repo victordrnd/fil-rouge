@@ -29,7 +29,7 @@ class Language extends QBLanguage
      *
      * @var array
      */
-    protected $attributes = [
+    protected static $attributes = [
         'CountryLanguage_Id', 'CountryCode', 'Language', 'IsOfficial', 'Percentage'
     ];
     /**
