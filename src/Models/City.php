@@ -174,4 +174,11 @@ class City extends QBCity
    {
       $this->Population = $population;
    }
+
+
+
+
+   public function country(){
+      return $this->belongsTo(Country::class, 'CountryCode', 'Code');
+   }
 }

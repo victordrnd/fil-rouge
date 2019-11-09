@@ -14,7 +14,6 @@ class User extends QBUser
     protected $login;
     protected $password;
 
-    protected $roles = [];
 
     /**
      * Table name
@@ -22,21 +21,27 @@ class User extends QBUser
      * @var string
      */
     protected static $table = "users";
-
-
+    
+    
     /**
      * Table primary key
      *
      * @var string
      */
     protected static $primaryKey = "user_id";
-
+    
     /**
      * List of all table column
      *
      * @var array
      */
     protected static $attributes = ['user_id', 'nom', 'login', 'password'];
+    
+    
+
+    public function roles(){
+        return $this->belongsToMany(Role::class, UserRole::class, 'role_id', 'user_id');
+    }
 
 
     /**
@@ -79,10 +84,6 @@ class User extends QBUser
         return $this->password;
     }
 
-    public function getRoles(){
-        return $this->roles;
-    }
-
 
 
     /**
@@ -116,4 +117,6 @@ class User extends QBUser
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
+
+
 }

@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Models\City;
-use Models\Country;
 use Models\Core\Request;
 
 use Renderer;
@@ -22,7 +21,7 @@ class CityController extends Controller
     public function show(Request $req, int $id)
     {
         $city = City::find($id);
-        $country = Country::findFromCountryCode($city->getCountryCode());
+        $country = $city->country();
         echo Renderer::render('city/city.php', compact("city", 'country'));
     }
 
@@ -45,7 +44,8 @@ class CityController extends Controller
      */
     public function search(Request $req)
     {
-        $cities = City::findByNameStartingWith($req->input('keyword'));
+        $keyword = $req->input('keyword');
+        $cities = City::where('Name','LIKE', "$keyword%")->get();
         $caller = "search";
         $name = $req->keyword;
         echo Renderer::render('city/cities.php', compact('cities', 'caller', 'name'));
@@ -96,7 +96,7 @@ class CityController extends Controller
     public function delete(int $id)
     {
         $city = City::find($id);
-        $country = Country::findFromCountryCode($city->getCountryCode());
+        $country = $city->country();
         $city->remove();
 
         header('location:/public_html/country/show/' . $country->Country_Id);

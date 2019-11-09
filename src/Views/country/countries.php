@@ -27,7 +27,7 @@ include_once(dirname(__DIR__) . '/header.php');
           <th scope="row">
             <img src="<?= $country->Image1 ?>" class="img-thumbnail p-0" width="30"></th>
           <td><a href="/public_html/country/show/<?= $country->Country_Id ?>"><?= $country->Name ?></a></td>
-          <td><?= $capital[$index] ? $capital[$index]->getName() : "Non spécifié" ?></td>
+          <td><?= isset($country->capital) ? $country->capital->getName() : "Non spécifié" ?></td>
           <td><?= $country->Population ?></td>
         </tr>
       <?php

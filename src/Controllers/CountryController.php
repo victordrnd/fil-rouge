@@ -3,8 +3,6 @@
 namespace Controllers;
 
 use Models\Country;
-use Models\City;
-use Models\Language;
 use Models\Core\Request;
 use Renderer;
 
@@ -20,9 +18,9 @@ class CountryController extends Controller
     public function show(int $id): void
     {
         $country = Country::find($id);
-        $capital = City::find($country->Capital);
-        $cities = City::findFromCountry($country);
-        $languages = Language::findFromCountryCode($country->Code);
+        $capital = $country->capital();
+        $cities = $country->cities();
+        $languages = $country->languages();
         $languageLabels = [];
         $percentages = [];
         foreach ($languages as $language) {
@@ -41,12 +39,9 @@ class CountryController extends Controller
     public function showAll(): void
     {
         $title = "Pays";
-        $countries = Country::all();
-        $capital = [];
-        foreach($countries as $country){
-            $capital[] = City::find($country->Capital);
-        }
-        echo Renderer::render('country/countries.php', compact("countries", "capital", "title"));
+        //TODO finish
+        $countries = Country::where(1, 1)->with('capital')->get();
+        echo Renderer::render('country/countries.php', compact("countries", "title"));
     }
 
     /**
@@ -58,12 +53,8 @@ class CountryController extends Controller
     public function findFromContinent(string $continent): void
     {
         $title = $continent;
-        $countries = Country::findFromContinent($continent);
-        $capital = [];
-        foreach ($countries as $country) {
-            $capital[] = City::find($country->Capital);
-        }
-        echo Renderer::render('country/countries.php', compact("countries", "capital", "title"));
+        $countries = Country::where('Continent',$continent)->with('capital')->get();
+        echo Renderer::render('country/countries.php', compact("countries", "title"));
     }
 
 
@@ -119,16 +110,16 @@ class CountryController extends Controller
     {
 
         $country = Country::find($id);
-        $cities = City::where('CountryCode', $country->Code);
+        $cities = $country->cities();
         foreach ($cities as $city) {
             $city->remove();
         }
-        $languages = Language::where("CountryCode", $country->Code);
+        $languages = $country->languages();
         foreach ($languages as $language) {
             $language->remove();
         }
         $country->remove();
-        header('location:/public_html/');
+        header('location:/public_html');
     }
 
 
