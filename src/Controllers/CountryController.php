@@ -44,6 +44,8 @@ class CountryController extends Controller
         echo Renderer::render('country/countries.php', compact("countries", "title"));
     }
 
+
+    
     /**
      * List all countries from specified continent
      *
@@ -73,7 +75,7 @@ class CountryController extends Controller
             'Code2' => $req->code2,
             'Image1' => $req->flag
         ]);
-        header('location:/public_html/country/show/'.$country->Country_Id);
+        header('location:/country/show/'.$country->Country_Id);
 
     }
 
@@ -96,7 +98,7 @@ class CountryController extends Controller
             'Capital' => $req->capital
         ]);
 
-        header('location:/public_html/country/show/'.$country->Country_Id);
+        header('location:/country/show/'.$country->Country_Id);
     }
 
 
@@ -119,7 +121,7 @@ class CountryController extends Controller
             $language->remove();
         }
         $country->remove();
-        header('location:/public_html');
+        header('location:/');
     }
 
 

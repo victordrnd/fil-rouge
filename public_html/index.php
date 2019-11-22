@@ -8,8 +8,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/public_html/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public_html/css/global.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/global.css">
     <script src="https://kit.fontawesome.com/2115a683fb.js" crossorigin="anonymous"></script>
 </head>
 
@@ -67,14 +67,14 @@ session_start();
     //MiddleWares
     $router->before('GET|POST', '/admin/.*', function() {
         if (!Auth::has(Permission::CANMANAGEUSERS)) {
-            header('location: /public_html/');
+            header('location: /');
             exit();
         }
     });
 
     $router->before('GET|POST', '/auth/.*', function() {
         if (Auth::has(Permission::CANMANAGEUSERS)) {
-            header('location: /public_html/admin/panel');
+            header('location: /admin/panel');
             exit();
         }
     });

@@ -26,7 +26,7 @@ class AuthController extends Controller
             echo Renderer::render('/auth/signin.php', compact('error'));
             exit();
         }
-        header('location:/public_html/admin/panel');
+        header('location:/admin/panel');
     }
 
 
@@ -44,7 +44,7 @@ class AuthController extends Controller
                     'password' => password_hash($req->password, PASSWORD_DEFAULT)
                 ]);
                 Auth::log($user);
-                header('location:/public_html');
+                header('location:/');
                 exit();
             }
             else{
@@ -60,6 +60,6 @@ class AuthController extends Controller
 
     public function logout(){
         session_destroy();
-        header('location:/public_html');
+        header('location:/');
     }
 }

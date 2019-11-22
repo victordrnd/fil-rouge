@@ -31,7 +31,7 @@ class AdminController extends Controller
                 'role_id' => $role
             ]);
         }
-        header('location:/public_html/admin/panel');
+        header('location:/admin/panel');
     }
     
 

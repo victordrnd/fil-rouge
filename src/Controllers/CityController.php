@@ -64,7 +64,7 @@ class CityController extends Controller
             'district' => $req->district,
             'population' => $req->population
         ]);
-        header('location:/public_html/city/show/'.$city->getCityId());
+        header('location:/city/show/'.$city->getCityId());
     }
 
     /**
@@ -83,7 +83,7 @@ class CityController extends Controller
             'District' => $req->district,
             'Population' => $req->population
         ]);
-        header('location:/public_html/city/show/'.$city->getCityId());
+        header('location:/city/show/'.$city->getCityId());
     }
 
 
@@ -99,7 +99,7 @@ class CityController extends Controller
         $country = $city->country();
         $city->remove();
 
-        header('location:/public_html/country/show/' . $country->Country_Id);
+        header('location:/country/show/' . $country->Country_Id);
     }
 
 

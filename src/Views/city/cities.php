@@ -24,7 +24,7 @@ include_once(dirname(__DIR__) .'/header.php');
           ?>
         <tr>
           <th scope="row"><?=$city->getCityId()?></th>
-          <td><a href="/public_html/city/show/<?=$city->getCityId()?>"><?=$city->getName()?></a></td>
+          <td><a href="/city/show/<?=$city->getCityId()?>"><?=$city->getName()?></a></td>
           <td><?=$city->getCountryCode()?></td>
           <td><?=$city->getPopulation()?></td>
         </tr>

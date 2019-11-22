@@ -6,7 +6,7 @@ include_once(dirname(__DIR__) . '/header.php');
   <?php
   if (Models\Facades\Auth::has(Models\Permission::CANCREATE)) :
     ?>
-    <a href="/public_html/country/add" class="text-primary float-right mb-2">Ajouter un pays <i class="fa fa-plus"></i></a>
+    <a href="/country/add" class="text-primary float-right mb-2">Ajouter un pays <i class="fa fa-plus"></i></a>
   <?php
   endif;
   ?>
@@ -26,7 +26,7 @@ include_once(dirname(__DIR__) . '/header.php');
         <tr>
           <th scope="row">
             <img src="<?= $country->Image1 ?>" class="img-thumbnail p-0" width="30"></th>
-          <td><a href="/public_html/country/show/<?= $country->Country_Id ?>"><?= $country->Name ?></a></td>
+          <td><a href="/country/show/<?= $country->Country_Id ?>"><?= $country->Name ?></a></td>
           <td><?= isset($country->capital) ? $country->capital->getName() : "Non spécifié" ?></td>
           <td><?= $country->Population ?></td>
         </tr>
@@ -39,6 +39,6 @@ include_once(dirname(__DIR__) . '/header.php');
 <script>
   function deleteCountry(id) {
     console.log('executed');
-    window.location = `/public_html/country/delete/${id}`;
+    window.location = `/country/delete/${id}`;
   }
 </script>

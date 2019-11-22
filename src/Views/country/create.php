@@ -4,7 +4,7 @@ include_once(dirname(__DIR__) . '/header.php');
 
 <div class="container mt-5">
     <h2 class="text-center ">Enregistrement d'un nouveau pays</h2>
-    <form action="/public_html/country/add" method="post">
+    <form action="/country/add" method="post">
         <div class="row">
             <div class="col-8 font-weight-bold">
                 <label>Code du pays : <small class="text-muted">(max : 3 caractères)</small></label>

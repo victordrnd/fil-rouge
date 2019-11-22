@@ -13,7 +13,7 @@ include_once(dirname(__DIR__) . '/header.php');
               </div>";
             }
             ?>
-            <form method="post" action="/public_html/auth/signin">
+            <form method="post" action="/auth/signin">
                 <div class="card shadow p-4 border-0">
 
                     <label>Nom d'utilisateur :</label>
@@ -25,7 +25,7 @@ include_once(dirname(__DIR__) . '/header.php');
                 </div>
                 <button class="btn btn-primary w-100 rounded-0">Connexion</button>
             </form>
-            <p class="text-center mt-2">Vous n'avez pas encore de compte ? <a class="text-primary" href="/public_html/auth/register">Inscrivez vous</a></p>
+            <p class="text-center mt-2">Vous n'avez pas encore de compte ? <a class="text-primary" href="/auth/register">Inscrivez vous</a></p>
         </div>
 
     </div>
