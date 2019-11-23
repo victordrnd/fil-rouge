@@ -1,6 +1,12 @@
 <?php
 include_once ('header.php');
 ?>
+
+<div class="text-center">
+<a href="/public_html/city/delete/<?=$city->getCityId()?>" class="btn btn-danger btn-lg " role="button" aria-disabled="true">delete</a>
+</div>
+
+
 <!-- <th scope="row"><?= $city->getCityId() ?></th>
 <td><?= $city->getName() ?></td>
 <td><?= $city->getCountryCode() ?></td>

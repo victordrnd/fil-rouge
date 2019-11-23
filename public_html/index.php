@@ -26,8 +26,12 @@
         echo PageController::index();
     });
 
-    $router->get('/city/{id}', function($id){
+    $router->get('/city/show/{id}', function($id){
         CityController::show($id);
+    });
+
+    $router->get('/city/delete/{id}', function($id){
+        CityController::delete($id);
     });
 
     $router->get('/country/show/{id}', function($id){

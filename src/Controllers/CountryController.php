@@ -61,7 +61,7 @@ class CountryController{
 
         //Rediriger vers les pays du continent
 
-        // header('location: /public_html/');
+         header('location: /public_html/');
     }
 
 }

@@ -51,7 +51,7 @@ include_once ('header.php');
           ?>
         <tr>
           <th scope="row"><?=$city->getCityId()?></th>
-          <td><a href="/public_html/city/<?=$city->getCityId()?>"><?=$city->getName()?></a></td>
+          <td><a href="/public_html/city/show/<?=$city->getCityId()?>"><?=$city->getName()?></a></td>
           <td><?=$city->getCountryCode()?></td>
           <td><?=$city->getPopulation()?></td>
         </tr>
