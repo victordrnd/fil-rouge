@@ -34,6 +34,7 @@ abstract class QBCity extends QueryBuilder
         return $cities;
     }
 
+
     public static function findFromContinent(string $continent){
         $SQL = "SELECT city.* from city, country WHERE country.Continent = :continent and city.CountryCode = country.code";
         $statement = Singleton::getInstance()->cnx->prepare($SQL);

@@ -1,6 +1,11 @@
 <?php
 include_once ('header.php');
 ?>
+
+<div class="text-center">
+<a href="/public_html/country/delete/<?=$country->Country_Id?>" class="btn btn-danger btn-lg " role="button" aria-disabled="true">delete</a>
+</div>
+
 <div class="container my-5">
     <a href="../continent/<?=$country->Continent?>">Retour à la liste des pays du continent</a>
     <div class="card border-0 shadow-sm">
@@ -8,6 +13,7 @@ include_once ('header.php');
             <div class="col-12">
                 <h1 class="text-center"><?= $country->Name ?> - <?= $country->Code ?></h1>
             </div>
+            
             <div class="col-6">
                 <h3>Informations complémentaires:</h3>
                 <ul class="list-unstyled">
