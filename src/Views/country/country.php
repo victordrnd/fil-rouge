@@ -3,11 +3,11 @@ include_once(dirname(__DIR__) . '/header.php');
 $disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disabled";
 ?>
 <div class="container my-5">
-  <a href="/public_html/continent/<?= $country->Continent ?>"><i class="fa fa-chevron-left"></i> Retour à la liste des pays du continent</a>
+  <a href="/continent/<?= $country->Continent ?>"><i class="fa fa-chevron-left"></i> Retour à la liste des pays du continent</a>
   <?php
   if (Models\Facades\Auth::has(Models\Permission::CANDELETE)) :
     ?>
-    <a href="/public_html/country/delete/<?= $country->Country_Id ?>" class="btn btn-danger text-white float-right pointer">Supprimer <i class="fa fa-trash"></i></a>
+    <a href="/country/delete/<?= $country->Country_Id ?>" class="btn btn-danger text-white float-right pointer">Supprimer <i class="fa fa-trash"></i></a>
   <?php
   endif;
   ?>
@@ -18,7 +18,7 @@ $disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disab
       </div>
       <div class="col-6">
         <h3>Informations complémentaires:</h3>
-        <form class="list-unstyled shadow-sm py-4" method="post" action="/public_html/country/update/<?= $country->Country_Id ?>">
+        <form class="list-unstyled shadow-sm py-4" method="post" action="/country/update/<?= $country->Country_Id ?>">
           <div class="px-4">
             <label class="list-item">ID :</label>
             <input type="text" class="form-control rounded-0 disabled" disabled value="<?= $country->Country_Id ?>" <?= $disabled ?>>
@@ -89,7 +89,7 @@ $disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disab
   <?php
   if (Models\Facades\Auth::has(Models\Permission::CANCREATE)) :
     ?>
-    <a href="/public_html/city/add/<?= $country->Code ?>" class="text-primary pointer float-right mb-2">Ajouter une ville <i class="fa fa-plus"></i></a>
+    <a href="/city/add/<?= $country->Code ?>" class="text-primary pointer float-right mb-2">Ajouter une ville <i class="fa fa-plus"></i></a>
   <?php
   endif;
   ?>
@@ -108,7 +108,7 @@ $disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disab
         ?>
         <tr>
           <th scope="row"><?= $city->getCityId() ?></th>
-          <td><a href="/public_html/city/show/<?= $city->getCityId() ?>"><?= $city->getName() ?></a></td>
+          <td><a href="/city/show/<?= $city->getCityId() ?>"><?= $city->getName() ?></a></td>
           <td><?= $city->getCountryCode() ?></td>
           <td><?= $city->getPopulation() ?></td>
         </tr>

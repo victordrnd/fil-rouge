@@ -1,17 +1,17 @@
 <?php
 include_once('header.php');
 ?>
-<link rel="stylesheet" type="text/css" href="/public_html/css/world/cssmap-continents.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/css/world/cssmap-continents.css" media="screen" />
 
 <h1 class="text-center logo mt-3 text-muted">World Database <i class="fas fa-globe-americas"></i></h1>
 <div id="map-continents" class="my-5">
     <ul class="continents">
-        <li class="c1"><a href="/public_html/continent/Africa">Afrique</a></li>
-        <li class="c2"><a href="/public_html/continent/Asia">Asie</a></li>
-        <li class="c3"><a href="/public_html/continent/Oceania">Océanie</a></li>
-        <li class="c4"><a href="/public_html/continent/Europe">Europe</a></li>
-        <li class="c5"><a href="/public_html/continent/North%20America">Amérique du nord</a></li>
-        <li class="c6"><a href="/public_html/continent/South%20America">Amérique du sud</a></li>
+        <li class="c1"><a href="/continent/Africa">Afrique</a></li>
+        <li class="c2"><a href="/continent/Asia">Asie</a></li>
+        <li class="c3"><a href="/continent/Oceania">Océanie</a></li>
+        <li class="c4"><a href="/continent/Europe">Europe</a></li>
+        <li class="c5"><a href="/continent/North%20America">Amérique du nord</a></li>
+        <li class="c6"><a href="/continent/South%20America">Amérique du sud</a></li>
     </ul>
 </div>
 <div class="container mt-5">
@@ -22,7 +22,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'Europe</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/Europe" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/Europe" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'Asie</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/Asia" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/Asia" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'Afrique</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/Africa" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/Africa" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'Amérique du Nord</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/North%20America" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/North%20America" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'Amérique du sud</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/South%20America" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/South%20America" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'Océanie</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/Oceania" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/Oceania" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@ include_once('header.php');
                 <div class="card-body">
                     <h5 class="card-title">L'antartique</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/public_html/continent/Antarctica" class="btn btn-primary">Afficher les pays</a>
+                    <a href="/continent/Antarctica" class="btn btn-primary">Afficher les pays</a>
                 </div>
             </div>
         </div>

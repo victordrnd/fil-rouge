@@ -33,6 +33,12 @@ class City extends QBCity
     */
    protected static $attributes = ['City_Id', 'Name', 'CountryCode', 'District', 'Population'];
 
+
+   public function country()
+   {
+      return $this->belongsTo(Country::class, 'CountryCode', 'Code');
+   }
+
    /**
     *
     * @var int
@@ -173,12 +179,5 @@ class City extends QBCity
    public function setPopulation(int $population)
    {
       $this->Population = $population;
-   }
-
-
-
-
-   public function country(){
-      return $this->belongsTo(Country::class, 'CountryCode', 'Code');
    }
 }

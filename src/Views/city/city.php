@@ -6,11 +6,11 @@ $disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disab
 <div class="my-5">
     <div class="row">
         <div class="offset-2 col">
-            <a href="/public_html/country/show/<?= $country->Country_Id ?>"><i class="fa fa-chevron-left"></i> Afficher le pays</a>
+            <a href="/country/show/<?= $country->Country_Id ?>"><i class="fa fa-chevron-left"></i> Afficher le pays</a>
             <?php
             if (Models\Facades\Auth::has(Models\Permission::CANDELETE)) :
                 ?>
-                <a href="/public_html/city/delete/<?= $city->getCityId() ?>" class="btn btn-danger  float-right">Supprimer <i class="fa fa-trash"></i></a>
+                <a href="/city/delete/<?= $city->getCityId() ?>" class="btn btn-danger  float-right">Supprimer <i class="fa fa-trash"></i></a>
             <?php
             endif;
             ?>
@@ -21,7 +21,7 @@ $disabled = Models\Facades\Auth::has(Models\Permission::CANUPDATE) ? "" : "disab
                     </div>
                     <div class="col">
                         <h3>Informations générales:</h3>
-                        <form method="post" action="/public_html/city/update/<?= $city->getCityId() ?>">
+                        <form method="post" action="/city/update/<?= $city->getCityId() ?>">
                             <div class="row p-3">
                                 <div class="col-6 mt-3">
                                     <label>Identifiant</label>

@@ -6,11 +6,12 @@ use Models\City;
 use Models\Core\Singleton;
 use Models\AR\Relationship;
 use Models\Core\Collection;
+
 abstract class QueryBuilder extends Relationship
 {
 
     /**
-     * Find object with selected id
+     * Find entity with selected id
      *
      * @param int $id
      */
@@ -26,7 +27,8 @@ abstract class QueryBuilder extends Relationship
 
 
     /**
-     *
+     * Delete calling entity 
+     * 
      * @param int $id
      * @return void
      */
@@ -34,7 +36,7 @@ abstract class QueryBuilder extends Relationship
     {
         $SQL = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " =:id";
         $statement = Singleton::getInstance()->cnx->prepare($SQL);
-        $primaryKeyValue= $this->getPrimaryKeyValue();
+        $primaryKeyValue = $this->getPrimaryKeyValue();
         $statement->bindParam("id", $primaryKeyValue);
         if ($statement->execute()) {
             $this->setPrimaryKeyValue(0);
@@ -69,7 +71,7 @@ abstract class QueryBuilder extends Relationship
             }
             $values[] = $this->{$attribut};
         }
-        $statement =Singleton::getInstance()->cnx->prepare($SQL);
+        $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $code = $statement->execute($values);
         if ($code) {
             $this->setPrimaryKeyValue($this->cnx->lastInsertId());
@@ -82,15 +84,16 @@ abstract class QueryBuilder extends Relationship
      * @param array $columns
      * @return void
      */
-    public static function create(array $columns){
-        $SQL = "INSERT INTO ". static::$table. " (";
+    public static function create(array $columns)
+    {
+        $SQL = "INSERT INTO " . static::$table . " (";
         $last_key = end(array_keys($columns));
         $indexed = "(";
-        foreach($columns as $key => $column){
-            if($key != $last_key){
+        foreach ($columns as $key => $column) {
+            if ($key != $last_key) {
                 $SQL .= "$key ,";
                 $indexed .= "?,";
-            }else{
+            } else {
                 $SQL .= "$key ) VALUES ";
                 $indexed .= "?)";
             }
@@ -101,7 +104,7 @@ abstract class QueryBuilder extends Relationship
             $value = htmlspecialchars($value);
         }
         $cnx = Singleton::getInstance()->cnx;
-        $cnx->setAttribute(\PDO::ATTR_EMULATE_PREPARES,TRUE);
+        $cnx->setAttribute(\PDO::ATTR_EMULATE_PREPARES, TRUE);
         $statement = $cnx->prepare($SQL);
         $statement->execute($values);
         $last_insert = get_called_class()::last();
@@ -120,33 +123,35 @@ abstract class QueryBuilder extends Relationship
     {
         if ($this->getPrimaryKeyValue() == 0) {
             $this->save();
-        }
-        $class = new \ReflectionClass(get_called_class());
-        $SQL = "UPDATE " . static::$table . " SET ";
-        $last_key = end(array_keys($columns));
-        foreach ($columns as $key => $value) {
-            if ($key != $last_key) {
-                $SQL .= "$key = ?, ";
-            } else {
-                $SQL .= "$key = ? ";
+        } else {
+            $class = new \ReflectionClass(get_called_class());
+            $SQL = "UPDATE " . static::$table . " SET ";
+            $last_key = end(array_keys($columns));
+            foreach ($columns as $key => $value) {
+                if ($key != $last_key) {
+                    $SQL .= "$key = ?, ";
+                } else {
+                    $SQL .= "$key = ? ";
+                }
+                if ($class->hasProperty($key)) {
+                    $this->{$key} = $value;
+                }
             }
-            if($class->hasProperty($key)){
-                $this->{$key} = $value;
+            $SQL .= "WHERE " . static::$primaryKey . " = ?";
+            $values = array_values($columns);
+            foreach ($values as &$value) {
+                $value = htmlspecialchars($value);
             }
+            $id = $this->getPrimaryKeyValue();
+            $values[] = $id;
+            $statement = Singleton::getInstance()->cnx->prepare($SQL);
+            $statement->execute($values);
         }
-        $SQL .= "WHERE " . static::$primaryKey . " = ?";
-        $values = array_values($columns);
-        foreach ($values as &$value) {
-            $value = htmlspecialchars($value);
-        }
-        $id = $this->getPrimaryKeyValue();
-        $values[] = $id;
-        $statement = Singleton::getInstance()->cnx->prepare($SQL);
-        $statement->execute($values);
     }
 
 
     /**
+     * Return all record for an entity
      *
      * @return array
      */
@@ -187,7 +192,7 @@ abstract class QueryBuilder extends Relationship
     {
         $operators = ['=', '>=', '>', '<', '<=', '!=', 'LIKE'];
         if (in_array($operator, $operators)) {
-            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column ." ". $operator . " ?";
+            $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . " " . $operator . " ?";
         } else {
             $SQL = "SELECT * FROM " . static::$table . " WHERE " . $column . " = ?";
             $value = $operator;
@@ -205,8 +210,9 @@ abstract class QueryBuilder extends Relationship
      *
      * @return void
      */
-    public static function last(){
-        $SQL = "SELECT * FROM ".static::$table." ORDER BY ".static::$primaryKey." DESC LIMIT 1";
+    public static function last()
+    {
+        $SQL = "SELECT * FROM " . static::$table . " ORDER BY " . static::$primaryKey . " DESC LIMIT 1";
         $statement = Singleton::getInstance()->cnx->prepare($SQL);
         $statement->execute();
         $object = $statement->fetchObject(get_called_class());

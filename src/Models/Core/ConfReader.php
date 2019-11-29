@@ -12,7 +12,7 @@ abstract class ConfReader{
     
 
     protected function __construct(){
-        self::$config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/config.ini');
+        self::$config = parse_ini_file('../config.ini');
     }
 
     /**

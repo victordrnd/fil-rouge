@@ -1,5 +1,5 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/src/Views/header.php');
+include_once('../src/Views/header.php');
 ?>
 <div class="container mt-5">
   <h2 class="text-center">Administration des utilisateurs</h2>
@@ -19,7 +19,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/src/Views/header.php');
         foreach ($users as $user) :
           ?>
           <tr>
-            <form action="/public_html/admin/user/update/<?= $user->getUserId() ?>" method="post">
+            <form action="/admin/user/update/<?= $user->getUserId() ?>" method="post">
               <th scope="row"><?= $user->getUserId() ?></th>
               <td><?= $user->getNom() ?></td>
               <td><?= $user->getLogin() ?></td>
